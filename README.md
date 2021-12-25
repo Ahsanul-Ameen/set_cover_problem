@@ -1,2 +1,2 @@
-# Set_Cover_Problem
-This is the repository of our implementation of various algorithms of Set Cover problem in CSE_462
+# Set Cover problem
+This is the repository of our implementation of various algorithms to solve set cover problem in CSE_462 sessional
