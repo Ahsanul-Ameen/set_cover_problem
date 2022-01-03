@@ -2,7 +2,7 @@
 This is the repository of our implementation of various algorithms to solve set cover problem in CSE_462 sessional
 
 ## command to run :
-`g++ -std=c++17 -Wshadow -Wall -o set_cover_dp set_cover_dp.cpp -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUGa && ./set_cover_dp`
+```g++ -std=c++17 -Wshadow -Wall -o set_cover_dp set_cover_dp.cpp -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUGa && ./set_cover_dp```
 
 ## Sample test cases
 
