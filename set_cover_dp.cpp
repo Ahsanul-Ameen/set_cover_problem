@@ -24,6 +24,7 @@ class SetCover {
 	vector<vector<int>> family, solution;
 
 private:
+	// O(n) time | O(1) space
 	int updateMask(int mask, int j) {
 		for (const int& item : family[j]) {
 			// clear the (item - 1) th bit of mask
@@ -77,6 +78,7 @@ public:
 		}	
 	}
 	
+	// O(m * 2^n * n) time | O(m * 2^n) space
 	int dpSolver() {
 		const int NSETS = (1 << n) - 1;
 
