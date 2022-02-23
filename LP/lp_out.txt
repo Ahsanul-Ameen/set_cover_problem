@@ -1,0 +1,107 @@
+-------- Execution on  ../test/1.txt ----------
+Number of variables = 4
+Number of constraints = 5
+Solution:
+Objective value = 3.0
+	 x_0  :  1.0
+	 x_1  :  0.0
+	 x_2  :  0.0
+	 x_3  :  1.0
+optimal fractional solution x_star =  [1.0, 0.0, 0.0, 1.0]
+
+RandomPick
+Cost :  3.0
+chosen sets :  1001
+
+RandomizedRound
+Cost :  3.0
+chosen sets :  1001
+
+
+-------- Execution on  ../test/2.txt ----------
+Number of variables = 5
+Number of constraints = 13
+Solution:
+Objective value = 2.0
+	 x_0  :  0.0
+	 x_1  :  0.0
+	 x_2  :  0.0
+	 x_3  :  1.0
+	 x_4  :  1.0
+optimal fractional solution x_star =  [0.0, 0.0, 0.0, 1.0, 1.0]
+
+RandomPick
+Cost :  1.0
+chosen sets :  00010
+
+RandomizedRound
+Cost :  2.0
+chosen sets :  00011 
+
+
+
+
+-------- Execution on  ../test/3.txt ----------
+Number of variables = 3
+Number of constraints = 5
+Solution:
+Objective value = 13.0
+	 x_0  :  0.0
+	 x_1  :  1.0
+	 x_2  :  1.0
+optimal fractional solution x_star =  [0.0, 1.0, 1.0]
+
+RandomPick
+Cost :  10.0
+chosen sets :  010
+
+RandomizedRound
+Cost :  13.0
+chosen sets :  011 
+
+-------- Execution on  ../test/4.txt ----------
+Number of variables = 11
+Number of constraints = 10
+Solution:
+Objective value = -5.5
+	 x_0  :  0.0
+	 x_1  :  1.0
+	 x_2  :  0.0
+	 x_3  :  1.0
+	 x_4  :  0.0
+	 x_5  :  0.0
+	 x_6  :  0.0
+	 x_7  :  1.0
+	 x_8  :  0.0
+	 x_9  :  0.0
+	 x_10  :  1.0
+optimal fractional solution x_star =  [0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]
+
+RandomPick
+Cost :  -5.5
+chosen sets :  01010001001
+
+RandomizedRound
+Cost :  -5.5
+chosen sets :  01010001001 
+
+
+
+-------- Execution on  ../test/5.txt ----------
+Number of variables = 4
+Number of constraints = 3
+Solution:
+Objective value = 30.75
+	 x_0  :  0.5
+	 x_1  :  0.5
+	 x_2  :  0.5
+	 x_3  :  0.0
+optimal fractional solution x_star =  [0.5, 0.5, 0.5, 0.0]
+
+RandomPick
+Cost :  51.0
+chosen sets :  0110
+
+RandomizedRound
+Cost :  31.0
+chosen sets :  1100

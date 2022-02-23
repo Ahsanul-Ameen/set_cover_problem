@@ -158,6 +158,7 @@ int main(int argc, char** argv) {
     //cin.tie(nullptr);
 	
 	freopen("../test/io_cases.txt", "r", stdin); 
+	freopen("./dp_out.txt", "w", stdout);
 	
     int T = 1;	// default
 	cin >> T;	
