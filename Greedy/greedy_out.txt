@@ -1,0 +1,38 @@
+
+#Case : 1 ...
+Total Cost: 3
+Output String: 1001
+Sets chosen: 
+1 2 3 
+4 5 
+
+#Case : 2 ...
+Total Cost: 3
+Output String: 11100
+Sets chosen: 
+1 2 
+2 3 4 5 
+6 7 8 9 10 11 12 13 
+
+#Case : 3 ...
+Total Cost: 13
+Output String: 011
+Sets chosen: 
+2 5 
+1 2 3 4 
+
+#Case : 4 ...
+Total Cost: 28.7
+Output String: 10110001000
+Sets chosen: 
+1 2 3 4 
+3 4 5 6 
+4 5 6 7 
+8 9 10 
+
+#Case : 5 ...
+Total Cost: 31
+Output String: 1100
+Sets chosen: 
+1 2 
+1 3 

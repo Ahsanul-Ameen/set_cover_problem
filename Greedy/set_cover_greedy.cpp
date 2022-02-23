@@ -122,7 +122,7 @@ int main() {
     //cin.tie(nullptr);
 	
 	freopen("../test/io_cases.txt", "r", stdin); 
-	freopen("./greedy_out.txt", "w", stdout);
+	freopen("greedy_out.txt", "w", stdout);
 	
     int T = 1;	// default
 	cin >> T;	
