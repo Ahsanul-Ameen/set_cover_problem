@@ -20,7 +20,8 @@ class SetCover {
 	const int INF = 1e8+37;
 	
 	int n, m;
-	vector<int> universe, cost;
+	vector<int> universe;
+	vector<double> cost;
 	vector<vector<int>> family, solution;
 
 private:
@@ -33,19 +34,26 @@ private:
 		return mask;
 	}
 	
-	void generateSolution(vector<vector<pair<int, bool>>>& dp) {
+	pair<double, string> generateSolution(vector<vector<pair<double, bool>>>& dp) {
 		const int NSETS = (1 << n) - 1;
 		
+		string str(m, '0');
+		double t_cost = 0.0;
 		int s_upto = m, mask = NSETS;
 		
 		while (s_upto and mask) {
 			if (dp[s_upto][mask].second) {
 				// item taken
+				str[s_upto - 1] = '1';
+				t_cost += cost[s_upto - 1]; 
 				solution.push_back(family[s_upto - 1]);
 				mask = updateMask(mask, s_upto - 1);
 			}
 			s_upto -= 1;
 		}
+		
+		//cout << t_cost << endl;
+		return {t_cost, str};
 	}
 	
 public:
@@ -61,7 +69,7 @@ public:
 		
 		// m costs of family
 		cost.resize(m);
-		for (int& c : cost) {
+		for (double& c : cost) {
 			cin >> c;
 		}
 		
@@ -79,15 +87,15 @@ public:
 	}
 	
 	// O(m * 2^n * n) time | O(m * 2^n) space
-	int dpSolver() {
+	pair<double, string> dpSolver() { // {cost, solution}
 		const int NSETS = (1 << n) - 1;
 
-		vector<vector<pair<int, bool>>> dp(m + 1, vector<pair<int, bool>>(NSETS + 1, {INF, false}));
+		vector<vector<pair<double, bool>>> dp(m + 1, vector<pair<double, bool>>(NSETS + 1, {INF, false}));
 		
 		for (int s_upto = 0; s_upto <= m; ++s_upto) {
 			for (int mask = 0; mask <= NSETS; ++mask) {
 				if (!s_upto) {
-					dp[s_upto][mask] = {!mask? 0 : INF, false};
+					dp[s_upto][mask] = {!mask? 0.0 : INF, false};
 				} else {
 					int with = dp[s_upto - 1][updateMask(mask, s_upto - 1)].first + cost[s_upto - 1];
 					int without = dp[s_upto - 1][mask].first;
@@ -95,11 +103,9 @@ public:
 				}
 			}
 		}
+	
 		
-		// generate solution
-		generateSolution(dp);
-		
-		return dp[m][NSETS].first;
+		return generateSolution(dp);
 	}
 	
 	void printSets() {
@@ -134,9 +140,11 @@ void test_case(int nt) {
 	
 	cout << "\n#Case : " << nt << " ..." << endl;
 	
-	st.printSets();
+	// st.printSets();
 	
-	cout << "cost : " << st.dpSolver() << endl;
+	auto item = st.dpSolver();
+	
+	cout << item.first << endl << item.second << endl;
 	
 	st.printSolution();
 	
@@ -149,6 +157,7 @@ int main(int argc, char** argv) {
     //unsync_io
     //cin.tie(nullptr);
 	
+	freopen("../test/io_cases.txt", "r", stdin); 
 	
     int T = 1;	// default
 	cin >> T;	
@@ -162,20 +171,31 @@ int main(int argc, char** argv) {
 
 /**
  * Sample test case
-    2
-    
+ 
+	3
+
+	5 4
+	1 2 3 4 5
+	1.0 3.0 5.0 2.0
+	3  1 2 3
+	2  2 4
+	2  3 4
+	2  4 5
+
+
 	13 5
 	1 2 3 4 5 6 7 8 9 10 11 12 13
 	1 1 1 1 1 
 	2  1 2
 	4  2 3 4 5
 	8  6 7 8 9 10 11 12 13
-	7  1 3 5 7 9  11 13
+	7  1 3 5 7 9 11 13
 	7  2 4 6 8 10 12 13
-	
+
+
 	5 3
 	1 2 3 4 5
-	5 10 3
+	5.0 10.0 3.0
 	3  4 3 1
 	2  2 5
 	4  1 4 3 2 

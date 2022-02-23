@@ -54,7 +54,7 @@ string set_cover_greedy(int m, set<int> U, const float costs[], set<int> subsets
 //        cout<< "\n";
 
     }
-    cout<< "Total Cost: "<< cost_count<<"\n";
+    cout<< "Total Cost: "<< cost_count<< "\n";
     return str;
 }
 
@@ -75,8 +75,11 @@ void print_sets(int m, string str, set<int> subsets[])
     }
 }
 
-int main() {
-    int n, m;
+void test_case(int nt) {
+	
+	cout << "\n#Case : " << nt << " ..." << endl;
+	
+	int n, m;
     cin >> n >> m;
     set<int> U;
     float costs[m] ;
@@ -109,16 +112,54 @@ int main() {
     }
 
     string bits = set_cover_greedy(m, U, costs, subsets);
-    cout<< "Output String: "<<bits<<"\n";
-    cout<< "Sets chosen: "<<"\n";
+    cout<< "Output String: " << bits << endl;
+    cout<< "Sets chosen: " << endl;
     print_sets(m, bits, subsets);
+}
+
+int main() {
+        //unsync_io
+    //cin.tie(nullptr);
+	
+	freopen("../test/io_cases.txt", "r", stdin); 
+	
+    int T = 1;	// default
+	cin >> T;	
+    for(int nt = 1; nt <= T; ++nt) {	
+		test_case(nt);
+    }
+    
+    return 0;
 
 }
 
-//5 4
-//1 2 3 4 5
-//1.0 3.0 5.0 2.0
-//3 1 2 3
-//2 2 4
-//2 3 4
-//2 4 5
+/**
+
+5 4
+1 2 3 4 5
+1.0 3.0 5.0 2.0
+3  1 2 3
+2  2 4
+2  3 4
+2  4 5
+
+
+13 5
+1 2 3 4 5 6 7 8 9 10 11 12 13
+1 1 1 1 1 
+2  1 2
+4  2 3 4 5
+8  6 7 8 9 10 11 12 13
+7  1 3 5 7 9 11 13
+7  2 4 6 8 10 12 13
+
+non optimal output at case 2
+
+5 3
+1 2 3 4 5
+5.0 10.0 3.0
+3  4 3 1
+2  2 5
+4  1 4 3 2
+ 
+ * */

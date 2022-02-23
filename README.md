@@ -4,12 +4,27 @@ This is the repository of our implementation of various algorithms to solve set 
 ## command to run :
 ```
 g++ -std=c++17 -Wshadow -Wall -o set_cover_dp set_cover_dp.cpp -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUGa && ./set_cover_dp
+
+./set_cover_dp
+
+./set_cover_greedy
+
+automatically access inputs
 ```
 
 ## Sample test cases
 
 ```
-2
+4
+
+5 4
+1 2 3 4 5
+1.0 3.0 5.0 2.0
+3  1 2 3
+2  2 4
+2  3 4
+2  4 5
+
 
 13 5
 1 2 3 4 5 6 7 8 9 10 11 12 13
@@ -17,13 +32,48 @@ g++ -std=c++17 -Wshadow -Wall -o set_cover_dp set_cover_dp.cpp -g -fsanitize=add
 2  1 2
 4  2 3 4 5
 8  6 7 8 9 10 11 12 13
-7  1 3 5 7 9  11 13
+7  1 3 5 7 9 11 13
 7  2 4 6 8 10 12 13
+
 
 5 3
 1 2 3 4 5
-5 10 3
+5.0 10.0 3.0
 3  4 3 1
 2  2 5
-4  1 4 3 2
+4  1 4 3 2 
+
+
+10 11
+1 2 3 4 5 6 7 8 9 10
+22.0 20.0 2.0 1.8 20.9 43.0 3.0 2.9 100.9 30.5 -30.2
+4  1 2 3 4
+4  2 3 4 5
+4  3 4 5 6  
+4  4 5 6 7
+4  5 6 7 8
+6  6 7 8 9 1 4
+4  7 8 9 10
+3  8 9 10
+2  9 10
+1  10
+2  10 1
+
+```
+
+```
+IO Format :
+
+n m
+1  2 3 ...  n
+c_1 c_2 ... c_m
+l1 s_11 s_12 ... s_1l1
+l2 .................
+.
+.
+lm  s_m1 s_m2 ... s_mlm
+
+
+cost
+10011....001 (bit string of length m)
 ```

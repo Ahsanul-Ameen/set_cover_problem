@@ -1,0 +1,6 @@
+akash ---- intro + problem formulation + final formulation [chosen] (short)
+Tasnim--- greedy algo + analysis + (approx ratio) + greedy literature review
+Enan---- DP algo + analysis + (exact algo) 
+Zahin ---- + dp literature + ILP formulation (LP relaxation)
+Sabit---- RamomizedRound + ILP analysis + conclusion
+
