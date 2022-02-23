@@ -1,0 +1,271 @@
+\documentclass[24pt,pdf,xcolor=table]{beamer}
+\usepackage{animate}
+\mode<presentation>{}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+\usepackage[utf8]{inputenc} 
+\usepackage{beamerthemesplit}
+\usetheme{Berlin}
+\usecolortheme{dolphin}
+\usepackage{enumerate}
+\usepackage {tikz}
+\usetikzlibrary{shadings}
+\usetikzlibrary {positioning}
+\usetikzlibrary{shapes.geometric}
+\usepackage {xcolor}
+\usepackage{hyperref}
+\usepackage{ amssymb }
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{extarrows}% http://ctan.org/pkg/extarrows
+\newcommand{\eqdef}{\xlongequal{\text{def}}}%
+\hypersetup{
+	bookmarksopen=false,
+	pdfpagemode=UseNone,
+	pdfpagemode=FullScreen,   
+	pdfauthor={\textbf{Ahsanul Ameen(1605047)}} 
+}
+
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+
+\title{Tree based access structures}
+\date{\today}
+
+
+
+\begin{document}
+	
+	\begin{frame}{\textit{Presentation 3}}
+		\titlepage
+	\end{frame}
+	
+	%tableofContents  slide-1
+	\begin{frame}{Table of Contents}
+		\tableofcontents
+	\end{frame}
+	
+	\section{Terminologies}
+		
+		\begin{frame}{Terminologies: Shannon's Entropy}
+			Given a discrete random variable $X$ with possible values $\{x_1 , x_2 , ... , x_n\}$ and a probability
+distribution $\{p(x_i)\}_{i = 1}^{n}$ , the Shannon entropy of $X$ is defined as
+			$$H(X) =  - \displaystyle\sum_{i = 1}^{n} p(x_i) log\,p(x_i)$$
+		\end{frame}	
+	
+		\begin{frame}{Terminologies: Secret Sharing Scheme, $\Sigma$}
+			A secret-sharing scheme $\Sigma$ for the access structure based on $G$ is a collection
+of R.V.s $\mathcal{E}_s$ and $\mathcal{E}_v$ for $v \in V(G)$ with a joint distribution such that, 
+			\vspace{0.3cm}
+			\begin{itemize}
+				\item $\mathcal{E}_s$ is the secret and $\mathcal{E}_v$ is the share of $v$;
+				\item if $uv \in E(G)$, then $\mathcal{E}_u$ and $\mathcal{E}_v$ together determine the value of $\mathcal{E}_s$; and
+				\item if $A \subseteq V(G)$ is an independent set, then $\mathcal{E}_s$ and the collection $\{\mathcal{E}_v | v \in A\}$ are statistically
+independent.
+			\end{itemize}
+		\end{frame}
+	
+		\begin{frame}{Terminologies: (average)Information Ratio}
+			$$R_{\Sigma} = max_{v \in V(G)} \{H(\mathcal{E}_v) / H(\mathcal{E}_s)\}$$
+			
+			$$AR_{\Sigma} = \sum_{v \in V(G)} \{H(\mathcal{E}_v) / (|V(G)|H(\mathcal{E}_s))\}$$
+			
+			\hrule
+			\vspace{0.2cm}
+			These ratios represent the \textbf{maximum} and \textbf{average} number of bits of
+			information the participants must remember for each bit of the secret
+		\end{frame}
+	
+	\section{Preliminaries}
+		\begin{frame}{Complete Multipartite Graphs (Ex-01)}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.5\textwidth]{./images/Complex_tripartite_graph_octahedron.svg.png}
+				\caption*{Tripartite Graph, $K_{2, 2, 2}$}
+			\end{figure}
+		\end{frame}
+	
+		\begin{frame}{Complete Multipartite Graphs (Ex-02)}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.5\textwidth]{./images/3-generalized-3-orthoplex-tripartite.svg.png}
+				\caption*{Graph of complex generalized octahedron, $K_{3, 3, 3}$}
+			\end{figure}
+		\end{frame}
+	
+		\begin{frame}{Complete Multipartite Graphs (Ex-03)}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.5\textwidth]{./images/Complex_multipartite_graph_16-cell.svg.png}
+				\caption*{16-cell skeleton as 4-partite graph, unconnected vertices colored identically, $K_{2,2,2,2}$}
+			\end{figure}
+		\end{frame}
+	
+		\begin{frame}{Ideal
+graph-based access structures}
+			\begin{block}{Theorem 1}
+				Suppose that $G$ is a connected graph. Then $R(G)$ = $1$ if and only if $G$ is
+				a complete \textbf{multipartite} graph.
+			\end{block}
+			\vspace{0.5cm}
+			\hrule
+			\vspace{0.5cm}
+			completely characterized by Brickell and Davenport
+		\end{frame}	
+	
+		\begin{frame}{Terminologies: complete multipartite coverings}
+			\begin{block}{Definition}
+				A \textbf{complete multipartite covering} of a graph $G$ is a collection of \textit{complete multipartite subgraphs} \textit{$\Pi$} = $\{G_1, G_2, ... , G_l\}$ of $G$ such that each \textbf{edge} of $G$ belongs to at least one subgraph in the collection.
+			\end{block}
+			\vspace{0.4cm}
+			\hrule
+			\vspace{0.5cm}
+			\centering
+			$\textcolor{magenta}{\sum_{i=1}^{l} |V(G_i)|}$ is the \textit{vertex-number
+sum of $\Pi$}
+		\end{frame}		
+		
+		\begin{frame}{Theorem - 2}
+			\begin{block}{}
+				\textit{Suppose that $\{G_1, G_2, ..., G_l\}$ is a complete multipartite covering of a graph $G$ with $V(G)$ = $\{1, 2, ..., n\}$. Let $R_i$ = $|\{j | i \in V(G_j)\}|$ and $R$ = $max_{1 \le i \le n} R_i.$ Then there exists a secret-sharing scheme $\Sigma$ on $G$ with information ratio $R_\Sigma$ and average information ratio $AR_\Sigma$ where}
+					$$ R_\Sigma = R \; and \; AR_\Sigma = \frac{1}{n} \sum_{i=1}^{n} R_i \, = \, \frac{1}{n} \textcolor{magenta}{\sum_{i=1}^{l} |V(G_i)|} $$
+			\end{block}
+		\end{frame}
+	
+		\begin{frame}{Terminologies: Core $V_0$ of a tree T}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.8\textwidth]{./images/core.png}
+				\caption*{A connected subgraph induced by a core $V_0$}
+			\end{figure}
+		\end{frame}		
+		
+		\begin{frame}{Core - Definition}
+			\begin{tcolorbox}[colback=green!5,colframe=green!20!black,title=Core]
+				\textit{A core $V_0$ of a tree $T$ is a subset $V_0$ of $V(T)$ such that $V_0$ induces a connected sub-graph of $T$ and each vertex in $V_0$ has a neighbor outside it.}
+			\end{tcolorbox}	
+			\vspace{1cm}
+			Csirmaz and Tardos
+		\end{frame}
+	
+		\begin{frame}{Defining a function}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=1.0\textwidth]{./images/texts.png}
+			\end{figure}
+		\end{frame}	
+	
+		\begin{frame}{Defining a real-valued function f}
+			\textcolor{blue}{$f(A) = H(\{\mathcal{E}_v : v \in A\}) / H(\mathcal{E}_s)$} for each subset $A \subseteq V(G)$
+		\end{frame}	
+		
+		\begin{frame}{Theorem - 3}
+			\begin{block}{}
+				Let $V_0$ be a core of a tree $T$. If $f$ is defined as above, then $\sum_{v\in V_0} \,f(v) \ge
+2|V_0| - 1$
+			\end{block}
+			Csirmaz and Tardos [6]
+		\end{frame}
+		
+	\section{Lower bound and upper bound on $AR(T)$}
+		\begin{frame}{\textit{core cluster}}
+			Suppose $T \ne K_{1,1}$
+			\begin{block}{\textit{A core cluster of size $k$}}
+				a partition $\mathcal{C} = \{V_1, V_2, ..., V_k\}$ of $IN(T)$ such that each $V_i, i \in \{1, 2, ..., k\}$ is a \textbf{core} of $T$ \\
+				The size of a \textit{core cluster} $\mathcal{C}$ is written as $c_{\mathcal{C}}$
+			\end{block}
+		
+		
+		
+			\begin{block}{\textit{core number}}
+				$c^{*}(T)$ = minimum size of all core clusters of $T$
+			\end{block}
+		\end{frame}
+	
+		\begin{frame}{Various cores of $IN(T)$ 1}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.6\textwidth]{./images/cores.png}
+				\caption{1. maximum core size $---$ minimum core cluster 2. absence of core cluster}
+			\end{figure}
+		\end{frame}	
+	
+		\begin{frame}{Various cores of $IN(T)$ 2}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.6\textwidth]{./images/core_parti.png}
+				\caption{One core can not cover all internal vertices}
+			\end{figure}
+		\end{frame}	
+	
+		\begin{frame}{Some observations}
+			\begin{itemize}
+				\item $\bigcup_{i = 1}^{k} V_i$ may not be a core in $T$
+				if so, then $c^*(T) = 1$ for $T \ne K_{1,1}$
+				\item Also, $c*(K_{1,1}) = 0$
+				\item Consider $|IN(T)|$ as $in(T)$
+			\end{itemize}
+
+			\begin{block}{Theorem 4 : establishing a lower bound on $AR(T)$}
+				\textit{If $T \ne K_{1,1}$ is a tree of order $n$, then $AR(T) \ge \frac{n + in(T) - c^*(T)}{n}$}
+			\end{block}			
+		\end{frame}
+	
+		\begin{frame}{Proof - 01}
+			Let $\mathcal{C}$  = $\{V_1, V_2, ... , V_k\}$ be a core cluster of $T$.
+			$$\sum_{v \in IN(T)} f(v) = \sum_{i = 1}^{k} \sum_{v \in V_i} f(v) \ge \sum_{i = 1}^{k} (2|V_i| - 1) = 2in(T) - k$$ \\
+			
+			Since $T$ is connected, $f(v) \ge 1$ for all $v \in V (T)$ [5]
+		\end{frame}
+		
+		\begin{frame}{Proof - 02}
+			\begin{tcolorbox}[colback=green!5,colframe=green!20!black,title=continue]
+				$$\sum_{v \in V(T)} f(v) = \sum_{v \in IN(T)} f(v) + \sum_{v \in LF(T)} f(v) $$ \\
+				$$\sum_{v \in V(T)} f(v) \ge 2in(T) - k + lf(T) = n + in(T) - k$$ 
+				Thus, $$AR_\Sigma \ge \frac{1}{n}(n + in(T) - k)$$
+				$$AR(T) \ge \frac{1}{n}(n + in(T) - c^{*}(T))$$
+			\end{tcolorbox}	
+		\end{frame}		
+		
+	
+		\begin{frame}{Stars}
+			A star $S_k$ is the complete bipartite graph $K_{1,k}$: a tree with one internal node and $k$ leaves (but no internal nodes and $k + 1$ leaves when $k \le 1$)
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.7\textwidth]{./images/star_graph.png}
+				\caption{Stars are the only complete multi-partite trees}
+			\end{figure}
+		\end{frame}
+	
+		\begin{frame}{Star coverings of a tree T}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.8\textwidth]{./images/star_coverings.png}
+			\end{figure}
+		\end{frame}
+	
+		\begin{frame}{Minimizing vertex-number sum}
+			Given a star covering $\Pi$ of $T$ with vertex-numbersum $m$ we define the \textit{deduction of $\Pi$}, $d_\Pi = |V(T)| + in(T) - m$. Also the maximum of all deductions originated from various coverings is denoted by	$d^{*}(T)$ and called the deduction of $T$
+			\vspace{1cm}
+			\begin{block}{deduction of }
+				$d_\Pi = |V(T)| + in(T) - m$\\
+				$d^{*}(T)$(maximum of all deduction) is called the deduction of $T$
+			\end{block}
+				
+			$$AR(T) \le \frac{1}{n}(n + in(T) - d*(T))$$
+		\end{frame}
+	
+		\begin{frame}{Theorems }
+			\begin{tcolorbox}[colback=green!5,colframe=green!20!black,title=Theorem 6]
+				For any star covering $\Pi$ of $T$ and any core cluster $\mathcal{C}$ of $T$, $c_\mathcal{C} \ge d_\Pi$ . In particular, $c^{*}(T) \ge d^{*}(T).$
+			\end{tcolorbox}	
+		
+			\vspace{1cm}
+			\begin{block}{Corollary 7}
+				If there exists a star covering $\Pi$ of $T$ and a core cluster $\mathcal{C}$ of $T$ such that $c_\mathcal{C} = d_\Pi$ , then $d^{*}(T) = d_\Pi = c_\mathcal{C} = c^{*}(T)$.
+			\end{block}
+			
+		\end{frame}
+\end{document}
