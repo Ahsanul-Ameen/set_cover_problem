@@ -4,10 +4,13 @@ This is the repository of our implementation of various algorithms to solve set 
 ## command to run :
 ```
 g++ -std=c++17 -Wshadow -Wall -o set_cover_dp set_cover_dp.cpp -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUGa && ./set_cover_dp
+g++ -std=c++17 -Wshadow -Wall -o set_cover_greedy set_cover_greedy.cpp -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUGa && ./set_cover_greedy
 
-./set_cover_dp
+time ./set_cover_dp
 
-./set_cover_greedy
+time ./set_cover_greedy
+
+time python3 set_cover_LP.py
 
 automatically access inputs
 ```
@@ -73,8 +76,8 @@ automatically access inputs
 IO Format :
 
 n m
-1  2 3 ...  n
-c_1 c_2 ... c_m
+item_1  item_2 item_3 ...  item_n
+cost_1 cost_2 ... cost_m
 l1 s_11 s_12 ... s_1l1
 l2 .................
 .
@@ -82,6 +85,6 @@ l2 .................
 lm  s_m1 s_m2 ... s_mlm
 
 
-cost
+total_cost
 10011....001 (bit string of length m)
 ```
